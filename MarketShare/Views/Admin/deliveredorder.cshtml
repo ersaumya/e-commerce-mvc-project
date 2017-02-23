@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MarketShare.Models.admin>
+@{
+    ViewBag.Title = "deliveredorder";
+}
+
+<h2 class="text-center text-danger">Delivered Order</h2>
+@{ 
+    WebGrid gd = new WebGrid(Model, rowsPerPage: 3, canPage: true);
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="gridContent">
+                @gd.GetHtml(tableStyle: "table table-bordered",
+                                headerStyle: "warning",
+                                   alternatingRowStyle: "danger",
+                                selectedRowStyle: "success",
+    columns: gd.Columns(
+        gd.Column("orderid", "Order Id"),
+        gd.Column("orderdate", format:@<text>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.orderdate))</text>),
+        gd.Column("customerid", "Customer Id"),
+        gd.Column("totalprice", "Total Price"),
+        gd.Column("Action", format:@<text>
+                <a href='@Url.Action("viewdeliveredorder","Admin",new { oid=item.orderid})'>
+                    <input type="button" value="View Details" class="btn btn-primary" /></a>
+            </text>)
+        )
+        )
+</div>
+        </div>
+    </div>
+</div>
+

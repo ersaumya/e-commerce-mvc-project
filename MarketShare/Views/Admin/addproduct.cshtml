@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "addproduct";
+}
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $("#category").on('change', function () {
+            var category = $("#category").val();
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("fetchsubcategory", "Admin")',
+                data: { "category": category },
+                dataType: "json",
+                success: function (data) {
+                   
+                    $("#subcategory").html(data.result);
+                }
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("#category,#subcategory").on('change', function () {
+            var category = $("#category").val();
+            var subcategory = $("#subcategory").val();
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("fetchtype", "Admin")',
+                data: { "category": category,"subcategory":subcategory },
+                dataType: "json",
+                success: function (data) {
+                   
+                    $("#type").html(data.result);
+                }
+            });
+        });
+    });
+</script>
+<form method="post" id="addproductform">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10" style="background-color:gainsboro">
+                <h2 class="text-center text-danger">Add Products</h2>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="inputcategory">Category</label>
+                        <select class="form-control" name="category" id="category">
+                            <option>Select</option>
+                            <option>Men</option>
+                            <option>Women</option>
+                            <option>Kids</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputsubcategory">Sub Category</label>
+                        <select class="form-control" name="subcategory" id="subcategory">
+                            <option>Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtype">Type</label>
+                        <select class="form-control" name="type" id="type">
+                            <option>Select</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputshortdescp">Short Description</label>
+                        <textarea name="shortdescp" class="form-control" id="inputshortdescp"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputlongdescp">Long Description</label>
+                        <textarea name="longdescp" class="form-control" id="inputlongdescp"></textarea>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+
+                    <div class="form-group">
+                        <label for="inputproductname">Product Name</label>
+                        <input type="text" name="productname" class="form-control" placeholder="Product Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputbrand">Brand</label>
+                        <input type="text" name="brand" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputmrp">M.R.P</label>
+                        <input type="text" name="mrp" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputquantity">Quantity</label>
+                        <input type="text" name="quantity" class="form-control" placeholder="Quality" />
+                    </div>
+            </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="inputsize">Size</label>
+                        <select class="form-control" name="size">
+                            <option>Select</option>
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+                            <option>XL</option>
+                            <option>XXL</option>
+                            <option>XXXL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputcolor">Color</label>
+                        <select class="form-control" name="color">
+                            <option>Select</option>
+                            <option>Red</option>
+                            <option>Green</option>
+                            <option>Blue</option>
+                            <option>White</option>
+                            <option>Pink</option>
+                            <option>Yellow</option>
+                            <option>Black</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputsellingprice">Selling Price</label>
+                        <input type="text" name="sellingprice" class="form-control" placeholder="Selling Price" />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputstatus">Status</label>
+                        <select class="form-control" name="status">
+                            <option>Select</option>
+                            <option>InStock</option>
+                            <option>Out Of Stock</option>
+                        </select>
+                    </div>
+
+                    <input type="submit" class="btn btn-success" value="Add" />
+                     <p>@ViewBag.msg</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

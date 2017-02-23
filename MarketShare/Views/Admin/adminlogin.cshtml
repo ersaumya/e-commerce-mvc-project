@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "adminlogin";
+}
+
+
+<form method="post" id="adminloginform">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-sm-4 col-sm-offset-4">
+                <h2 class="text-center text-danger">Admin Login</h2>
+                <div class="form-group">
+                    <label for="inputadminid">Admin ID</label>
+                    <input type="text" class="form-control" name="adminid" id="inputadminid" placeholder="Admin Id" />
+                </div>
+                <div class="form-group">
+                    <label for="inputpassword">Password</label>
+                    <input type="password" class="form-control" name="password" id="inputpassword" placeholder="Password" />
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+                <div class="form-group">
+                    <a href="~/Admin/adminforgotpassword">Forgot Password?</a>
+                </div>
+                <h4>@ViewBag.msg</h4>
+            </div>
+        </div>
+        </div>
+
+</form>

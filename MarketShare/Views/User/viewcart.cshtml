@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "viewcart";
+}
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        showcartitems();       
+    });
+
+
+    /* start show cart items in page */
+    function showcartitems() {
+
+        var productids = "";
+        if ($.cookie('itemcookie')) {
+            var data = JSON.parse($.cookie("itemcookie"));
+            $.each(data, function (key1, val1) {
+                productids += val1.productid + ",";
+            });
+        }
+        if (productids != "") {
+         
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("showcart", "User")',
+                data: { "productids": productids },
+                dataType: "json",
+                success: function (data) {
+                    $("#tablecart").html(data.result);
+                    
+                    $("#totalprice").html(data.totalprice);
+                }
+            });
+
+        }
+        else {
+            $("#tablecart").html("<td colspan='5'>There is no item in your cart.</td>");
+            $("#totalprice").html("0");
+            // $("#porderbtn").hide();
+           
+        }
+
+    }
+    /* end show cart items in page */
+</script>
+<h2 class="text-center text-danger">View Cart</h2>
+<section id="cartitems">
+<div class="container">
+    <div class="row">
+       <div class="col-sm-10 col-sm-offset-1">
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed" border="1">
+                    <caption class="text-left"><h3>Items Details :</h3></caption>
+                    <thead>
+                        <tr class="cart_menu" style="background-color:#FE980F">
+                            <td class="text-center text-info" style="color:white"><b>Items</b></td>
+                            <td class="text-center text-info" style="color:white"><b>Quantity</b></td>
+                            <td class="text-center text-info" style="color:white"><b>Price</b></td>
+                            <td class="text-center text-info" style="color:white"><b>Sub Total</b></td>
+                            <td class="text-center text-info" style="color:white"><b>Action</b></td>
+                        </tr>
+                    </thead>
+                    <tbody id="tablecart"></tbody>
+               </table>
+                <br />
+            <div class="col-sm-offset-8">
+                <span><b>Total Price:</b><span id="totalprice"></span></span><br />
+            </div>
+            </div>
+            <br />
+      </div>
+    </div>
+   <div class="row">
+              <div class="col-sm-2 col-sm-offset-1">
+                  <a href="@Url.Action("index","User")"><input type="button" class="btn btn-danger" value="Continue Shopping" /></a>
+              </div>
+              <div class="col-sm-2 col-sm-offset-6">
+               @if (Session["emailid"] != null)
+               {
+                <a href="@Url.Action("checkout","User")">
+                    <input type="button" class="btn btn-success" value="Proceed to Check Out" />
+                </a>
+               }
+               else
+               {
+                <a href="@Url.Action("login","User")">
+                    <input type="button" class="btn btn-success" value="Proceed to Check Out" />
+                </a>
+               }
+       </div> 
+    </div>
+    <br />
+</div>
+</section>

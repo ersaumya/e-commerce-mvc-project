@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "viewmyorders";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <form>
+                <label>Order Id:@ViewBag.orderid</label><br />
+                <label>Customerid:@ViewBag.customerid</label>
+            </form>
+
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-3">
+            <form>
+                <label>Order Status:@ViewBag.orderstatus</label><br />
+                <label>Order Date:@ViewBag.orderdate</label>
+            </form>
+
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <h3 class=" text-center text-danger">Items Products Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="table-responsive">
+                    <table border="1" class="table table-condensed">
+                        <tr style="background-color:lightgrey">
+                            <td class='text-center'><b>ItemId</b></td>
+                            <td class='text-center'><b>ItemName</b></td>
+                            <td class='text-center'><b>Price</b></td>
+                            <td class='text-center'><b>Quantity</b></td>
+                            <td class='text-center'><b>Sub-Total Price</b></td>
+                        </tr>
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@m.productname</td>
+                                <td>@m.sellingprice</td>
+                                <td>@m.quantity</td>
+                                <td>@m.subtotalprice</td>
+
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <br />
+                <div class="col-sm-offset-8">
+                    <span><b>Total Price:@ViewBag.totalprice</b><span id="totalprice"></span></span><br />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <h4 class="text-center"><b><u>Shipping Address</u></b></h4>
+                <address>
+                    <label>@Html.Raw(ViewBag.shippingaddress)</label><br />
+
+                </address>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-3">
+                <h4 class="text-center"><b><u>Shipping Details</u></b></h4>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="cno">Courier No:@ViewBag.courierno</label>
+
+                    </div>
+                    <div class="form-group">
+                        <label for=" couriertype">Courier Type:@ViewBag.couriertype</label>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="sdate">Ship Date:@ViewBag.shippingdate</label>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="dby">Deliver By:@ViewBag.deliverby</label>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="ddate">Deliver Date:@ViewBag.delivereddate</label>
+                      
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-1">
+                <input type="button" class="btn btn-danger" value="Back" />
+            </div>
+
+        </div>
+    </div>
+</div>

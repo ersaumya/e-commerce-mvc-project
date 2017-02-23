@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "searchitem";
+}
+
+<h2 class="text-center">Search Item</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="item active">
+                @{
+                    var k = 0;
+                    var divstyle = "</div><div class='item'>";
+                }
+                @foreach (var i in Model)
+                {
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <a href="@Url.Action("productdetails","User", new { productid = @i.productid })">  <img src="~/productimage/@i.productimage" alt="" /></a>
+                                    <h2>Rs.@i.sellingprice</h2>
+                                    <a href="@Url.Action("productdetails","User", new { productid = @i.productid })"><p>@i.productname</p></a>
+                                    <a href="#" class="btn btn-default add-to-cart cartbtn" data-id="@i.productid"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    k++;
+                    if (k % 4 == 0)
+                    {
+                        @Html.Raw(divstyle)
+                    }
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

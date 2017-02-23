@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<section id="slider" style="background-color:white">
+    <!--slider-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider-carousel" data-slide-to="1"></li>
+                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-sm-12 text-center">
+                              <img src="~/images/ban7.jpg" class="girl img-responsive" alt="" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-sm-12">
+                              <img src="~/images/ban8.jpg" class="girl img-responsive" alt="" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-sm-12">
+                              <img src="~/images/ban4.jpg" class="girl img-responsive" alt="" />
+                          </div>
+                        </div>
+
+                    </div>
+
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section><!--/slider-->
+
+<div class="container">
+                    <div class="recommended_items">
+                        <h2 class="title text-center">FEATURES ITEMS</h2>
+                          <div class="item active">
+                                    @{
+                                        var k = 0;
+                                        var divstyle = "</div><div class='item'>";
+                                    }
+                                    @foreach (var i in Model)
+                                    {
+                                        string pname = i.productname;
+                                        pname = pname.Substring(0,15);
+                                        <div class="col-sm-3">
+                                            <div class="product-image-wrapper">
+                                                <div class="single-products">
+                                                    <div class="productinfo text-center">
+                                                        <a href="@Url.Action("productdetails","User", new { productid = @i.productid })">  <img src="~/productimage/@i.productimage" alt="" /></a>
+                                                        <h2>Rs.@i.sellingprice</h2>
+                                                        <a href="@Url.Action("productdetails","User", new { productid = @i.productid })"><p>@pname</p></a>
+                                                        <a href="#" class="btn btn-default add-to-cart cartbtn" data-id="@i.productid"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        k++;
+                                        if (k % 4 == 0)
+                                        {
+                                            @Html.Raw(divstyle)
+
+                                        }
+                                    }
+
+                                </div>
+                    </div>
+</div>
+                   

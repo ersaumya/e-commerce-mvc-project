@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="demodbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin_master">
+          <Key>
+            <PropertyRef Name="adminid" />
+          </Key>
+          <Property Name="adminid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="emailid" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order_details">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customerid" Type="nvarchar" MaxLength="50" />
+          <Property Name="productids" Type="nvarchar(max)" />
+          <Property Name="quantity" Type="nvarchar(max)" />
+          <Property Name="prices" Type="nvarchar(max)" />
+          <Property Name="totalprice" Type="float" />
+          <Property Name="orderdate" Type="date" />
+          <Property Name="orderstatus" Type="nvarchar(max)" />
+          <Property Name="paymenttype" Type="nvarchar(max)" />
+          <Property Name="paymentstatus" Type="nvarchar(max)" />
+          <Property Name="deliverby" Type="nvarchar(max)" />
+          <Property Name="delivereddate" Type="date" />
+          <Property Name="shippingdate" Type="date" />
+          <Property Name="courierno" Type="nvarchar" MaxLength="50" />
+          <Property Name="couriertype" Type="nvarchar" MaxLength="50" />
+          <Property Name="shippingaddress" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="product_category">
+          <Key>
+            <PropertyRef Name="categoryid" />
+          </Key>
+          <Property Name="categoryid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="nvarchar" MaxLength="50" />
+          <Property Name="subcategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="product_master">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryid" Type="int" />
+          <Property Name="productname" Type="nvarchar(max)" />
+          <Property Name="mrp" Type="float" />
+          <Property Name="sellingprice" Type="float" />
+          <Property Name="brand" Type="nvarchar(max)" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="size" Type="nvarchar(max)" />
+          <Property Name="color" Type="nvarchar(max)" />
+          <Property Name="shortdescp" Type="nvarchar(max)" />
+          <Property Name="longdescp" Type="nvarchar(max)" />
+          <Property Name="productimage" Type="nvarchar(max)" />
+          <Property Name="sellerid" Type="nvarchar" MaxLength="50" />
+          <Property Name="updatedate" Type="date" />
+          <Property Name="addeddate" Type="date" />
+          <Property Name="status" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="user_feedback">
+          <Key>
+            <PropertyRef Name="feedbackid" />
+          </Key>
+          <Property Name="feedbackid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="emailid" Type="nvarchar" MaxLength="50" />
+          <Property Name="contactno" Type="nvarchar" MaxLength="50" />
+          <Property Name="subject" Type="nvarchar(max)" />
+          <Property Name="message" Type="nvarchar(max)" />
+          <Property Name="dateofmsg" Type="date" />
+        </EntityType>
+        <EntityType Name="user_master">
+          <Key>
+            <PropertyRef Name="emailid" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="emailid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="securityquestion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="answer" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="wishlist_product">
+          <Key>
+            <PropertyRef Name="wishlistid" />
+          </Key>
+          <Property Name="wishlistid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productid" Type="int" />
+          <Property Name="customerid" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="demodbModelStoreContainer">
+          <EntitySet Name="admin_master" EntityType="Self.admin_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_details" EntityType="Self.order_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_category" EntityType="Self.product_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_master" EntityType="Self.product_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_feedback" EntityType="Self.user_feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wishlist_product" EntityType="Self.wishlist_product" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="demodbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="user_master">
+          <Key>
+            <PropertyRef Name="emailid" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="securityquestion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="answer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="demodbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="user_master" EntityType="Self.user_master" />
+          <EntitySet Name="admin_master" EntityType="demodbModel.admin_master" />
+          <EntitySet Name="user_feedback" EntityType="demodbModel.user_feedback" />
+          <EntitySet Name="product_category" EntityType="demodbModel.product_category" />
+          <EntitySet Name="product_master" EntityType="demodbModel.product_master" />
+          <EntitySet Name="wishlist_product" EntityType="demodbModel.wishlist_product" />
+          <EntitySet Name="order_details" EntityType="demodbModel.order_details" />
+        </EntityContainer>
+        <EntityType Name="admin_master">
+          <Key>
+            <PropertyRef Name="adminid" />
+          </Key>
+          <Property Name="adminid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emailid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="user_feedback">
+          <Key>
+            <PropertyRef Name="feedbackid" />
+          </Key>
+          <Property Name="feedbackid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contactno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateofmsg" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="product_category">
+          <Key>
+            <PropertyRef Name="categoryid" />
+          </Key>
+          <Property Name="categoryid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="subcategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="product_master">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryid" Type="Int32" />
+          <Property Name="productname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="mrp" Type="Double" />
+          <Property Name="sellingprice" Type="Double" />
+          <Property Name="brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="shortdescp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="longdescp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="productimage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sellerid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="updatedate" Type="DateTime" Precision="0" />
+          <Property Name="addeddate" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="wishlist_product">
+          <Key>
+            <PropertyRef Name="wishlistid" />
+          </Key>
+          <Property Name="wishlistid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="customerid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="order_details">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customerid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="productids" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="prices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="totalprice" Type="Double" />
+          <Property Name="orderdate" Type="DateTime" Precision="0" />
+          <Property Name="orderstatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="paymenttype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="paymentstatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deliverby" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="delivereddate" Type="DateTime" Precision="0" />
+          <Property Name="shippingdate" Type="DateTime" Precision="0" />
+          <Property Name="courierno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="couriertype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="shippingaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="demodbModelStoreContainer" CdmEntityContainer="demodbEntities">
+          <EntitySetMapping Name="user_master">
+            <EntityTypeMapping TypeName="demodbModel.user_master">
+              <MappingFragment StoreEntitySet="user_master">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="emailid" ColumnName="emailid" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="securityquestion" ColumnName="securityquestion" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admin_master">
+            <EntityTypeMapping TypeName="demodbModel.admin_master">
+              <MappingFragment StoreEntitySet="admin_master">
+                <ScalarProperty Name="emailid" ColumnName="emailid" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="adminid" ColumnName="adminid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_feedback">
+            <EntityTypeMapping TypeName="demodbModel.user_feedback">
+              <MappingFragment StoreEntitySet="user_feedback">
+                <ScalarProperty Name="dateofmsg" ColumnName="dateofmsg" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="contactno" ColumnName="contactno" />
+                <ScalarProperty Name="emailid" ColumnName="emailid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="feedbackid" ColumnName="feedbackid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_category">
+            <EntityTypeMapping TypeName="demodbModel.product_category">
+              <MappingFragment StoreEntitySet="product_category">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="subcategory" ColumnName="subcategory" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_master">
+            <EntityTypeMapping TypeName="demodbModel.product_master">
+              <MappingFragment StoreEntitySet="product_master">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="addeddate" ColumnName="addeddate" />
+                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
+                <ScalarProperty Name="sellerid" ColumnName="sellerid" />
+                <ScalarProperty Name="productimage" ColumnName="productimage" />
+                <ScalarProperty Name="longdescp" ColumnName="longdescp" />
+                <ScalarProperty Name="shortdescp" ColumnName="shortdescp" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="sellingprice" ColumnName="sellingprice" />
+                <ScalarProperty Name="mrp" ColumnName="mrp" />
+                <ScalarProperty Name="productname" ColumnName="productname" />
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wishlist_product">
+            <EntityTypeMapping TypeName="demodbModel.wishlist_product">
+              <MappingFragment StoreEntitySet="wishlist_product">
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="wishlistid" ColumnName="wishlistid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_details">
+            <EntityTypeMapping TypeName="demodbModel.order_details">
+              <MappingFragment StoreEntitySet="order_details">
+                <ScalarProperty Name="shippingaddress" ColumnName="shippingaddress" />
+                <ScalarProperty Name="couriertype" ColumnName="couriertype" />
+                <ScalarProperty Name="courierno" ColumnName="courierno" />
+                <ScalarProperty Name="shippingdate" ColumnName="shippingdate" />
+                <ScalarProperty Name="delivereddate" ColumnName="delivereddate" />
+                <ScalarProperty Name="deliverby" ColumnName="deliverby" />
+                <ScalarProperty Name="paymentstatus" ColumnName="paymentstatus" />
+                <ScalarProperty Name="paymenttype" ColumnName="paymenttype" />
+                <ScalarProperty Name="orderstatus" ColumnName="orderstatus" />
+                <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+                <ScalarProperty Name="totalprice" ColumnName="totalprice" />
+                <ScalarProperty Name="prices" ColumnName="prices" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="productids" ColumnName="productids" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

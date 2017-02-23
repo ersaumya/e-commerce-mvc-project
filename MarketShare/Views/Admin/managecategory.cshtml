@@ -1,0 +1,106 @@
+﻿@model IEnumerable<MarketShare.Models.admin>
+@{
+    ViewBag.Title = "managecategory";
+}
+@{
+    WebGrid gd = new WebGrid(Model, rowsPerPage: 3, canPage: true);
+}
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $(".edit-mode").hide();
+        $(".edtbtn,.canbtn").on('click', function () {
+            
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode,.display-mode').toggle();
+        });
+        //update code
+        $(".updbtn").on("click", function () {
+            var tr = $(this).parents('tr:first');
+            var categoryid = $(this).attr("data-id");
+            var category = tr.find("#tcategory").val();
+            var subcategory = tr.find("#tsubcategory").val();
+            var type = tr.find("#ttype").val();
+           
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("updatecategory", "Admin")',
+                data: { "categoryid": categoryid,"category": category,"subcategory":subcategory,"type": type },
+                dataType: "json",
+                success: function (data) {
+                   
+                    tr.find("#scategory").text(category);
+                    tr.find("#ssubcategory").text(subcategory);
+                    tr.find("#stype").text(type);
+                    tr.find('.edit-mode,.display-mode').toggle();
+                }
+            });
+        });
+        //delete code
+        $(".delbtn").on("click", function () {
+            var s = confirm("Are you sure to delete?");
+            if (s) {
+                var tr = $(this).parents('tr:first');
+                var categoryid = $(this).attr("data-id");
+                $.ajax({
+                    type: "get",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("deletecategory", "Admin")',
+                    data: { "categoryid": categoryid },
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data.result);
+                        tr.hide();
+                    }
+                });
+            }
+
+        });
+
+    });
+
+</script>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center text-danger">Manage Category</h2>
+            <div id="gridContent">
+                @gd.GetHtml(tableStyle: "table table-bordered",
+                                headerStyle: "warning",
+                                   alternatingRowStyle: "danger",
+                                selectedRowStyle: "success",
+                           columns: gd.Columns(
+                      gd.Column("categoryid", "CategoryId"),
+                     gd.Column("category", format:@<text>
+                        <span id="scategory" class="display-mode">@item.category</span>
+                        <select id="tcategory" class="edit-mode">
+                            <option>Men</option>
+                            <option>Women</option>
+                            <option>kids</option>
+                        </select>                    </text>),
+                    gd.Column("subcategory", format:@<text>
+                                <span id="ssubcategory" class="display-mode">@item.subcategory</span>
+                                <select id="tsubcategory" class="edit-mode">
+                                    <option>Clothes</option>
+                                    <option>Shoes</option>
+                                    <option>Watches</option>
+                                    <option>Sunglass</option>
+                                </select>                    </text>),
+                      gd.Column("type", format:@<text>
+                                <span id="stype" class="display-mode">@item.type</span>
+                                <input type="text" id="ttype" value="@item.type" class="edit-mode"  />                   </text>),
+
+                      gd.Column("Action", format: @<text>
+                                <input type="button" value="Edit" data-id="@item.categoryid" class="display-mode edtbtn" />
+                                <input type="button" value="Update" data-id="@item.categoryid" class="edit-mode updbtn" />
+                                <input type="button" value="Delete" data-id="@item.categoryid" class="display-mode delbtn" />
+                                <input type="button" value="Cancel" data-id="@item.categoryid" class="edit-mode canbtn" />
+                                              </text>)
+         )
+         )
+            </div>
+        </div>
+    </div>
+</div>

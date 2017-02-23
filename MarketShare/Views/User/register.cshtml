@@ -1,0 +1,63 @@
+﻿@model MarketShare.Models.marketuser
+ 
+@{
+    ViewBag.Title = "register";
+}
+<!--<link href="~/my validation/bootstrap.min.css" rel="stylesheet" />
+<link href="~/my validation/formvalid.css" rel="stylesheet" />
+<script src="~/my validation/jquery.min.js"></script>
+<script src="~/my validation/bootstrap.min.js"></script>
+<script src="~/my validation/formvalid.js"></script>-->
+
+<form method="post" id="regform" class="form-horizontal fv-form fv-form-bootstrap" novalidate="novalidate">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-4">
+                <h2 class="text-center text-danger">Registration</h2>
+                <div class="form-group fv-has-feedback">
+                    <label for="inputname"class="control-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="inputname" placeholder="Name" />
+
+                </div>
+                <div class="form-group">
+                    <label for="inputemail"class="control-label">Email Id</label>
+                    <input type="email" class="form-control" name="emailid" id="inputemail" placeholder="Email" />
+                </div>
+                <div class="form-group">
+                    <label for="inputpassword" class="control-label">Password</label>
+                    <input type="password" placeholder="Password" class="form-control" name="password"  id="inputpassword" />
+                    
+                </div>
+              
+                <div class="form-group">
+                    <label for="inputsecurityquestion">Security Question</label>
+                    <select class="form-control" name="securityquestion">
+                        <option>Select</option>
+                        <option>What is your favorite color?</option>
+                        <option>What is your nick name?</option>
+                        <option>Who is your first teacher?</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputanswer">Answer</label>
+                    <input type="text" class="form-control" name="answer" id="inputanswer" placeholder="Answer" />
+                </div>
+              <div class="form-group">
+                  @Html.LabelFor(model => model.Captcha)
+                  <a href="#">
+                      <img alt="Captcha" src="@Url.Action("CaptchaImage")" style="" />
+                  </a>
+              </div>
+              <div class="form-group">
+                  @Html.EditorFor(model => model.Captcha)
+                  @Html.ValidationMessageFor(model => model.Captcha)
+              </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Submit" />
+            </div>
+            <h4>@ViewBag.msg</h4>
+            </div>
+        </div>
+    </div>
+</form>
+

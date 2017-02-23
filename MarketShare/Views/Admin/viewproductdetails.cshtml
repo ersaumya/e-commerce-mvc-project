@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "viewproductdetails";
+}
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+       // alert("hello hhh");
+        $("#b1").click(function () {
+            //alert("hello hhh");
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("updateproduct","Admin")',
+                dataType: "json",
+                data:$("#productform").serialize(),
+                success: function (res)
+                {
+                    alert(res.result);
+                }
+            });
+        });
+    });
+
+</script>
+@foreach (var i in Model)
+{
+
+    <div class="container">
+        <div class="row">
+            <form method="post" enctype= "multipart/form-data" action="@Url.Action("imageupload","Admin")">
+                <div class="col-sm-4">                   
+                    <img src="~/productimage/@i.productimage" height="150" width="150" /><br />
+                    <label for="file">Upload Image:</label>
+                    <input type="file" name="file" id="file" /><br><br>
+                    <input type="hidden" name="productid" value="@i.productid" class="form-control" id="inputproductname" />
+                    <input type="submit" value="Upload Image" />
+                    <br><br>
+               </div>
+            </form>
+            <form method="post" id="productform">
+                <div class="col-sm-8">
+                    <h2 class="text-center text-danger">View Product Details of (@ViewBag.productid)</h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="inputcategory">Category :</label>
+
+                                <input type="hidden" name="productid" value="@i.productid" class="form-control" id="inputproductname" />
+
+
+
+                                <select class="form-control" value="@i.category" name="category">
+                                    <option>Men</option>
+                                    <option>Women</option>
+                                    <option>kids</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputsubcat">Sub Category :</label>
+                                <select class="form-control" value="@i.subcategory" name="subcategory">
+                                    <option>Clothes</option>
+                                    <option>Shoes</option>
+                                    <option>Watches</option>
+                                    <option>Sunglass</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputtype">Type :</label>
+                                <input type="text" name="type" value="@i.type" class="form-control" id="inputtype" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputproductname">Product Name :</label>
+                                <input type="text" name="productname" value="@i.productname" class="form-control" id="inputproductname" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputshortdescp">Short Description :</label>
+                                <textarea name="shortdescp" id="inputshortdescp">@i.shortdescp</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputlongdescp">Long Description :</label>
+                                <textarea name="longdescp" id="inputlongdescp">@i.longdescp</textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputcolor">Color :</label>
+                                        <input type="text" value="@i.color" name="color" class="form-control" id="inputcolor" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputsize">Size :</label>
+                                        <input type="text" name="size" value="@i.size" class="form-control" id="inputsize" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputcolor">Brand :</label>
+                                        <input type="text" name="brand" value="@i.brand" class="form-control" id="inputcolor" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputsize">Quantity :</label>
+                                        <input type="text" name="quantity" value="@i.quantity" class="form-control" id="inputsize" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputcolor">M.R.P :</label>
+                                        <input type="text" name="mrp" value="@i.mrp" class="form-control" id="inputcolor" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputsize">Selling price :</label>
+                                        <input type="text" name="sellingprice" value="@i.sellingprice" class="form-control" id="inputsize" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputcolor">Update Date :</label>
+                                        <input type="text" name="updatedate" value="@Convert.ToString(string.Format("{0:dd/MM/yyyy}", i.updatedate))" class="form-control" id="inputcolor" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputsize">Added Date :</label>
+                                        <label for="inputsize" class="form-control" id="inputsize">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", i.addeddate))</label>
+                                    </div>  
+                                   
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputsize">Status :</label>
+                                        <input type="text" name="status" value="@i.status" class="form-control" id="inputsize" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inputsize">Seller Id :</label>
+                                        <label  class="form-control" id="inputsize">@i.sellerid</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <input type="button" id="b1" class="btn btn-success" value="Update" />&nbsp;&nbsp;&nbsp;&nbsp;<a href='@Url.Action("manageproduct", "Admin")'><input type="button" class="btn btn-danger" value="Back to view" /></a>
+                </div>
+            </form>
+          </div>
+      </div>
+}
+
+
+

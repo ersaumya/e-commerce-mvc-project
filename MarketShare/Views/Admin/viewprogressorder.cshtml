@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "viewprogressorder";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <form>
+                <label>Order Id:<span id="orderid">@ViewBag.orderid</span></label><br />
+                <label>Customerid:@ViewBag.customerid</label>
+            </form>
+
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-3">
+            <form>
+                <label>Order Status:@ViewBag.orderstatus</label><br />
+                <label>Order Date:@Convert.ToString(string.Format("{0:dd/MM/yyyy}", @ViewBag.orderdate))</label>
+            </form>
+
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <h3 class=" text-center text-danger">Items Products Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="table-responsive">
+                    <table border="1" class="table table-condensed">
+                        <tr style="background-color:lightgrey">
+                            <td class='text-center'><b>ItemId</b></td>
+                            <td class='text-center'><b>ItemName</b></td>
+                            <td class='text-center'><b>Price</b></td>
+                            <td class='text-center'><b>Quantity</b></td>
+                            <td class='text-center'><b>Sub-Total Price</b></td>
+                        </tr>
+                        @foreach (var m in Model)
+                        {
+                        <tr>
+                            <td>@m.productid</td>
+                            <td>@m.productname</td>
+                            <td>@m.sellingprice</td>
+                            <td>@m.quantity</td>
+                            <td>@m.subtotalprice</td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+                <br />
+                <div class="col-sm-offset-8">
+                    <span><b>Total Price:@ViewBag.totalprice</b><span id="totalprice"></span></span><br />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-sm-3 col-sm-offset-1">
+                <h4 class="text-center"><b><u>Shipping Address</u></b></h4>
+                <address>
+                    <label>@Html.Raw(ViewBag.shippingaddress)</label><br />
+
+                </address>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-3">
+                <h4 class="text-center"><b><u>Shipping Details</u></b></h4>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="cno">Courier No:@ViewBag.courierno</label>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for=" couriertype">Courier Type:@ViewBag.couriertype</label>
+                       
+                    </div>
+                    <div class="form-group">
+                        <label for="sdate">Ship Date:@Convert.ToString(string.Format("{0:dd/MM/yyyy}",@ViewBag.shippingdate))</label>
+                       
+                    </div>
+                    <div class="form-group">
+                        <label for="deliverby">Deliver By:</label>
+                        <input type="text" name="deliverby" id="deliverby"/>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-2">
+                <a href="@Url.Action("progressorder","Admin")"><input type="button" class="btn btn-danger" value="Back" /></a>
+            </div>
+            <div class="col-sm-2">
+                <input type="button" id="dit" class="btn btn-success" value="Deliver It" />
+            </div>
+        </div>
+    </div> 
+</div>
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $("#dit").click(function () {
+            var orderid = $("#orderid").html();
+            var deliverby = $("#deliverby").val();
+         $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("updateprogressdata", "Admin")',
+                data: { "deliverby":deliverby, "orderid": orderid },
+                dataType: "json",
+                success: function (data) {
+                    alert("Orderid "+orderid+" Delivered successfully");
+                   
+                }
+            });
+        });
+    });
+</script>
+

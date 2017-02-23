@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MarketShare.Models.marketuser>
+@{
+    ViewBag.Title = "manageuser";
+}
+
+@{
+    WebGrid gd = new WebGrid(Model, rowsPerPage: 3, canPage: true);
+}
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $(".edit-mode").hide();
+        $(".editbtn,.canbtn").on('click', function () {
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode,.display-mode').toggle();
+        });
+        //update code
+        $(".updbtn").on("click", function () {
+            var tr = $(this).parents('tr:first');
+            var emailid = $(this).attr("data-id");
+            var name = tr.find("#tname").val();
+            var password = tr.find("#tpwd").val();
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("updateuser", "Admin")',
+                data: { "name": name,"emailid":emailid,"password": password },
+                dataType: "json",
+                success: function (data) {
+                    alert(data.result);
+                    tr.find("#sname").text(name);
+                    tr.find("#spwd").text(password);
+                    tr.find('.edit-mode,.display-mode').toggle();
+                }
+            });
+        });
+        //delete code
+        $(".delbtn").on("click", function () {
+            var s = confirm("Are you sure to delete?");
+            if (s) {
+                var tr = $(this).parents('tr:first');
+                var emailid = $(this).attr("data-id");
+                $.ajax({
+                    type: "get",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("deleteuser", "Admin")',
+                    data: { "emailid": emailid },
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data.result);
+                        tr.hide();
+                    }
+                });
+            }
+
+        });
+
+    });
+
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center text-danger">Manage Users</h2>
+ <div id="gridContent">
+                @gd.GetHtml(tableStyle: "table table-bordered",
+                headerStyle: "warning",
+                alternatingRowStyle: "danger",
+                selectedRowStyle: "success",
+                columns: gd.Columns(
+                     gd.Column("name",format:@<text>
+                    <span id="sname" class="display-mode">@item.name</span>
+                    <input type="text" id="tname" class="edit-mode" value="@item.name" />
+                    </text>),
+        gd.Column("emailid", "Email Id"),
+        gd.Column("password", format:@<text>
+                    <span id="spwd" class="display-mode">@item.password</span>
+                    <input type="text" id="tpwd" class="edit-mode" value="@item.password" />
+        </text>),
+        gd.Column("securityquestion", "Security Question"),
+        gd.Column("answer", "Answer"),
+        gd.Column("Action", format: @<text>
+                    <input type="button" value="Edit" data-id="@item.emailid" class="display-mode editbtn" />
+                    <input type="button" value="Update" data-id="@item.emailid" class="edit-mode updbtn" />
+                    <input type="button" value="Delete" data-id="@item.emailid" class="display-mode delbtn" />
+                    <input type="button" value="Cancel" data-id="@item.emailid" class="edit-mode canbtn" />
+
+        </text>)
+         ))
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

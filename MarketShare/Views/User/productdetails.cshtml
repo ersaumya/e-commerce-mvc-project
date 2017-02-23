@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "productdetails";
+}
+
+<h2 class="text-center text-danger">Product Details</h2>
+
+@foreach (var i in Model)
+{
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="product-details">
+                <!--product-details-->
+                <form method="post">
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="~/productimage/@i.productimage" width="100" height="200" />
+                            <h3>ZOOM</h3>
+                        </div>
+                    </div>
+                </form>
+                <form method="post">
+              <div class="col-sm-7">
+                    <div class="product-information">
+                        <!--/product-information-->
+                        <img src="~/images/product-details/new.jpg" class="newarrival" alt="" />
+                        <h2>@i.productname</h2>
+                        <span>
+                            <span>Rs.@i.mrp</span>
+                            <label>Quantity:</label>
+                            <input type="text" value="@i.quantity" />
+                            <button type="button" class="btn btn-default cart cartbtn"data-id="@i.productid">
+                            <i class="fa fa-shopping-cart"></i>
+                            Add to cart
+                            </button>
+                            <br />
+                            <button type="button" id="wish" class="btn btn-primary" data-id="@i.productid" >
+                                <i class="fa fa-star"></i>
+                                Wishlist
+                            </button>
+
+                        </span>
+                        <p><b>Availability:</b>@i.status</p>
+                        <p><b>Condition:</b> New</p>
+                        <p><b>Brand:</b>@i.brand</p>
+                        <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
+                    </div><!--/product-information-->
+                </div>
+                    </form>
+                <div class="col-sm-offset-5 padding-right">
+                    <h2 class="text-left text-danger">Description</h2>
+                    <span>
+                           <textarea>@i.longdescp</textarea>
+                   </span>
+               </div>
+             </div>
+        </div>
+    </div>
+   </div>
+}
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $("#wish").click(function () {
+            var productid = $(this).attr('data-id');
+                $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("insertwishdata", "User")',
+                data: { "productid": productid },
+                dataType: "json",
+                success: function (data) {
+                    alert("Added to wishlist");
+
+                }
+            });
+        });
+});
+    </script>

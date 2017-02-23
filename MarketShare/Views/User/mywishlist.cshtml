@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "mywishlist";
+}
+
+@foreach(var i in Model)
+{
+
+<form method="post">
+    <div class="container">
+        <div class="row">
+             <div class="panel-body ">
+                 <div class="jumbotron "style="height:200px;width:100%;background-color:paleturquoise">
+                     <div class="col-sm-offset-2 col-sm-3 pull-left text-center">
+                         <span><img src="~/productimage/@i.productimage" width="150" height="100" /></span>
+                     </div>
+
+
+                     <div class="col-sm-3 text-center">
+                         <span><b>@i.productname</b></span><br />
+                         <h4>Rs.@i.mrp</h4>
+
+                     </div>
+
+
+                     <div class="col-sm-2 text-center">
+                         <a href="#" class="btn btn-primary add-to-cart cartbtn">
+                             <i class="fa fa-shopping-cart"></i>Add to cart
+                         </a>
+                     </div>
+                    
+                 </div>
+            </div>
+    </div>
+</div>
+    </form>
+}

@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "contactus";
+}
+<form method="post" id="contactusform">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" style="background-color:gainsboro">
+                <h2 class="text-center text-danger">Contact Address</h2>
+                <address class="text-center"><b>
+    ONLINE-BEST SHOP Pvt.Ltd<br />
+    At-Bhubaneswar<br />
+    Contact No-9238591744<br />
+    Fax No-067125476<br />
+    Email Id-info@onlinebestshop.com<br />
+</b>
+                </address>
+            </div>
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4" style="background-color:gainsboro">
+                <h2 class="text-center text-danger">Give Your Feedback</h2>
+                <div class="form-group">
+                    <label for="inputname">Name</label>
+                    <input type="text" name="name" class="form-control" id="inputname" placeholder="Name" />
+                </div>
+                <div class="form-group">
+                    <label for="inputemailid">Email Id</label>
+                    <input type="email" name="emailid" class="form-control" id="inputemailid" placeholder="Email Id" />
+                </div>
+                <div class="form-group">
+                    <label for="inputcontactno">Contact No</label>
+                    <input type="text" name="contactno" class="form-control" id="inputcontactno" placeholder="Contact No" />
+                </div>
+                <div class="form-group">
+                    <label for="inputsubject">Subject</label>
+                    <textarea name="subject" class="form-control" id="inputsubject" ></textarea>
+                   
+                </div>
+                <div class="form-group">
+                    <label for="inputmessage">Message</label>
+                    <textarea name="message" class="form-control" id="inputmessage"></textarea>
+                   
+                </div>
+                <input type="submit"value="Send"class="btn btn-success" />
+            </div>
+        </div>
+
+    </div>
+
+</form>

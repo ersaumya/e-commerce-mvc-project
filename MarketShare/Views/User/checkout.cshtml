@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "checkout";
+}
+
+<h2 class="text-center text-success">Check Out</h2>
+<form class="post">
+    <div class="container">
+        <div class="row">
+           
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="shippingdetails" style="background-color:#FE980F;color:white;font-size:20px;padding:4px 7px 2px 4px;margin:35px;text-align:center"><p><b>Enter Shipping Details</b></p></div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" placeholder="Name*" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="city" placeholder="City" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text"id="landmark" class="form-control" placeholder="Land Mark" />
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="state">
+                            <option>--State--</option>
+                            <option>Assam</option>
+                            <option>Arunachal Pradesh</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Karnataka</option>
+                            <option>Kerala</option>
+                            <option>Telangana</option>
+                            <option>Maharastra</option>
+                            <option>Tamil Nadiu</option>
+                            <option>Odisha</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="pincode"  placeholder="Pincode*" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="address" placeholder="Address" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="emailid" placeholder="EmailId*" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="mobileno" placeholder="Mobile*" />
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                   <a href='@Url.Action("thankyou","User")'> <input type="button" id="fs" value="Final Submit" class="btn btn-success" /></a>
+                </div>
+            </div>
+       </div>
+    </div>
+</form>
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $("#fs").click(function () {
+            var name = $("#name").val();
+            var city = $("#city").val();
+            var landmark = $("#landmark").val();
+            var state = $("#state").val();
+            var pincode = $("#pincode").val();
+            var address = $("#address").val();
+            var emailid = $("#emailid").val();
+            var mobileno = $("#mobileno").val();
+            var productids = "";
+            if ($.cookie('itemcookie')) {
+                var data = JSON.parse($.cookie("itemcookie"));
+                $.each(data, function (key1, val1) {
+                    productids += val1.productid + ",";
+                });
+            }
+            if(productids!="")
+            {
+                    $.ajax({
+                        type: "get",
+                        contentType: "application/json;charset=utf-8",
+                        url: '@Url.Action("saveorder", "User")',
+                        data: { "name": name, "city": city, "landmark": landmark, "state": state, "pincode": pincode, "address": address, "emailid": emailid, "mobileno": mobileno, "productids": productids },
+                        dataType: "json",
+                        success: function (data) {
+                            $.removeCookie("itemcookie");
+                            if (data.msg != "error") {
+                                window.location = "thankyou/?orderid="+data.msg;
+                            }
+                            else {
+                                alert("try again");
+
+                            }
+                           
+                       
+                    }
+                 });
+             }
+        });
+    });
+</script>
+

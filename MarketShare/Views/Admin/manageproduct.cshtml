@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MarketShare.Models.admin>
+@{
+    ViewBag.Title = "manageproduct";
+}
+
+<h2 class="text-center text-danger">Manage Products</h2>
+
+@*@{ 
+    WebGrid gd = new WebGrid(Model, rowsPerPage: 3, canPage: true);
+}*@
+<div class="container">
+    <div class="table-responsive">
+        <table border="1" class="table table-condensed">
+            <thead>
+            <tr class="product_menu">
+                <td class="text-center">Image</td>
+                <td class="text-center">Product Name</td>
+                <td class="text-center">M.R.P</td>
+                <td class="text-center">Selling Price</td>
+                <td class="text-center">Status</td>
+                <td class="text-center">Quantity</td>
+                <td class="text-center">Update Date</td>
+                <td class="text-center">Action</td>
+            </tr>
+                </thead>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td class="text-center" ><img src="~/productimage/@i.productimage" height="60" width="60" /></td>
+                    <td class="text-center">@i.productname</td>
+                    <td class="text-center">@i.mrp</td>
+                    <td class="text-center">@i.sellingprice</td>
+                    <td class="text-center">@i.status</td>
+                    <td class="text-center">@i.quantity</td>
+                    <td class="text-center">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", i.updatedate))</td>
+                    <td class="text-center"><a href='@Url.Action("viewproductdetails","Admin",new { productid=@i.productid})'><input type="button" value="View Details" class="btn btn-primary " /></a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

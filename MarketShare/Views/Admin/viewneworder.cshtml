@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "viewneworder";
+}
+
+
+<div class="container">
+    <div class="row">
+      
+        <div class="col-sm-3 col-sm-offset-1">
+            <form>
+                <label>Order Id:<span id="orderid">@ViewBag.orderid</span></label><br />
+                <label>Customerid:@ViewBag.customerid</label>
+            </form>
+            
+        </div>
+       
+        <div class="col-sm-3 col-sm-offset-4">
+            <form>
+                <label>Order Status:@ViewBag.orderstatus</label><br />
+                <label>Order Date:format:@Convert.ToString(string.Format("{0:dd/MM/yyyy}", @ViewBag.orderdate))</label>
+            </form>
+           
+        </div>
+      
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <h3 class=" text-center text-danger">Items Products Details</h3>
+            </div>
+        </div>
+        <div class="row">
+        
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="table-responsive">
+                    <table border="1" class="table table-condensed">
+                        <tr style="background-color:lightgrey">
+                            <td class='text-center'><b>ItemId</b></td>
+                            <td class='text-center'><b>ItemName</b></td>
+                            <td class='text-center'><b>Price</b></td>
+                            <td class='text-center'><b>Quantity</b></td>
+                            <td class='text-center'><b>Sub-Total Price</b></td>
+                        </tr>
+                        @foreach (var k in Model)
+                        {
+                        <tr>
+                            <td>@k.productid</td>
+                            <td>@k.productname</td>
+                            <td>@k.sellingprice</td>
+                            <td>@k.quantity</td>
+                            <td>@k.subtotalprice</td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+                <br />
+                <div class="col-sm-offset-8">
+                    <span><b>Total Price:@ViewBag.totalprice</b><span id="totalprice"></span></span><br />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-3 col-sm-offset-1">
+                <h4 class="text-center"><b><u>Shipping Address</u></b></h4>
+                <address>
+                    <label>@Html.Raw(ViewBag.shippingaddress)</label><br />
+                </address>
+                <br />
+                <div class="text-center">
+                    <a href="@Url.Action("neworders","Admin")"><input type="button" class="btn btn-danger" value="Back" /></a>
+                </div>
+            </div>
+
+            <div class="col-sm-3 col-sm-offset-4" id="shipdetail">
+                <h4 class="text-center"><b><u>Shipping Details</u></b></h4>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="cno">Courier No:</label>
+                        <input type="text" name="courierno" id="courierno" />
+                    </div>
+                    <div class="form-group">
+                        <label for=" couriertype">Courier Type:</label>
+                        <select class="form-control" name="couriertype" id="couriertype">
+                            <option>Select</option>
+                            <option>Blue Dart</option>
+                            <option>DTDC</option>
+                        </select>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="text-right">
+                        <input type="button" id="sit" class="btn btn-success" value="Ship It" />
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div id="printbill" class="col-sm-3 col-sm-offset-4" style="display:none">
+
+                <h4 class="text-center"><b><u>Shipping Details</u></b></h4>
+
+                <label>Courier No:<span id="scourierno"></span></label><br />
+                <label>Courier Type:<span id="scouriertype"></span></label><br />
+                <div class="text-right">
+                    <a href="@Url.Action("Invoice","Admin", new {oid= @ViewBag.orderid})" target="_blank"><input type="button" id="pit" class="btn btn-success" value="Print Invoice/Bill" /></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+        
+            
+       </div>
+  
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $("#sit").click(function () {
+           
+            var orderid = $("#orderid").html();
+            var courierno = $("#courierno").val();
+            var couriertype = $("#couriertype").val();
+
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("updateshipdata", "Admin")',
+                data: { "courierno": courierno, "couriertype": couriertype, "orderid": orderid },
+                dataType: "json",
+                success: function (data) {
+                    alert("Orderid " + orderid + " Placed successfully");
+                    $("#scourierno").html(courierno);
+                    $("#scouriertype").html(couriertype);
+                    $("#shipdetail").hide();
+                    $("#printbill").show();
+                    //$("#subcategory").html(data.result);
+                }
+            });
+        });
+    });
+</script>

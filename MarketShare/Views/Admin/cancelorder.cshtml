@@ -1,0 +1,61 @@
+﻿
+
+@model IEnumerable<MarketShare.Models.admin>
+@{
+    ViewBag.Title = "cancelorder";
+}
+
+<h2 class="text-center text-danger">Cancel Order</h2>
+@{
+    WebGrid gd = new WebGrid(Model, rowsPerPage: 3, canPage: true);
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $(".delbtn").on("click", function () {
+            var s = confirm("Are you sure to delete?");
+            if (s) {
+                var tr = $(this).parents('tr:first');
+                var orderid = $(this).attr("data-id");
+                $.ajax({
+                    type: "get",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("deletecancelorder", "Admin")',
+                    data: { "orderid": orderid },
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data.result);
+                        tr.hide();
+                    }
+                });
+            }
+        });
+    });
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id=" gridContent">
+                @gd.GetHtml(tableStyle: "table table-bordered",
+                                headerStyle: "warning",
+                                   alternatingRowStyle: "danger",
+                                selectedRowStyle: "success",
+    columns: gd.Columns(
+        gd.Column("orderid", "Order Id"),
+        gd.Column("orderdate", format:@<text>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.orderdate))</text>),
+        gd.Column("customerid", "Customer Id"),
+        gd.Column("totalprice", "Total Price"),
+        gd.Column("Action", format:@<text>
+            <a href="@Url.Action("viewcancelorder","Admin",new { oid=item.orderid})"><input type="button" value="View Details" class="btn btn-primary" /></a>
+           
+                <input type="button" value="Delete" data-id="@item.orderid" class="display-mode delbtn btn btn-primary" />
+        </text>)
+        )
+        )
+            </div>
+        </div>
+    </div>
+</div>
+
+

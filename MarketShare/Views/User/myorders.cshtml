@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MarketShare.Models.marketuser>
+@{
+    ViewBag.Title = "myorders";
+}
+
+<h2 class="text-center text-danger">My Total Orders</h2>
+@{
+    WebGrid gd = new WebGrid(Model, rowsPerPage: 3, canPage: true);
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="gridContent">
+                @gd.GetHtml(tableStyle: "table table-bordered",
+                                headerStyle: "warning",
+                                   alternatingRowStyle: "danger",
+                                selectedRowStyle: "success",
+    columns: gd.Columns(
+        gd.Column("orderid", "Order Id"),
+        gd.Column("orderdate", "Order Date"),
+        gd.Column("orderstatus", "Status"),
+        gd.Column("totalprice", "Total Price"),
+        gd.Column("Total Items", format:@<text>
+           <div>@Html.Raw(item.totalitems)</div>
+        </text>),
+        gd.Column("Action", format:@<text>
+                <a href='@Url.Action("viewmyorders","User",new { oid=item.orderid})'>
+                    <input type="button" value="View Details" class="btn btn-primary" />
+                </a>
+            </text>)
+       )
+    )
+</div>
+        </div>
+    </div>
+</div>
+
